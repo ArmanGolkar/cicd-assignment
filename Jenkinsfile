@@ -6,15 +6,13 @@ pipeline {
         NODE_OPTIONS = '--openssl-legacy-provider'
     }
     stages {
-        stage('Clean Workspace') {
-            steps {
-                cleanWs()  // Clean the workspace before starting
-            }
-        }
         stage('Install') {
             steps {
-                bat 'rd /s /q node_modules'
-                bat 'npm install'
+                // Check if node_modules exists, and then delete it if it does
+                bat '''
+                IF EXIST node_modules rd /s /q node_modules
+                npm install
+                '''
             }
         }
         stage('List Files') {

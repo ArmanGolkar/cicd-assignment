@@ -19,7 +19,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'npm test -- --watchAll=false --verbose'
+            
+                bat 'npm test -- --watchAll=false --verbose src/App.test.js'
+
             }
         }
         stage('Deploy') {

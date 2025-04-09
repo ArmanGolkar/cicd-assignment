@@ -12,6 +12,12 @@ pipeline {
                 bat 'npm install'
             }
         }
+        stage('List Files') {
+         steps {
+        bat 'dir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Arman Golkar\\src\\'
+    }
+}
+
         stage('Build') {
             steps {
                 bat 'npm run build'

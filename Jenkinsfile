@@ -8,30 +8,37 @@ pipeline {
     stages {
         stage('Install') {
             steps {
-                bat 'rd /s /q node_modules'
-                bat 'npm install'
+                bat 'rd /s /q node_modules'  // Remove existing node_modules
+                bat 'npm install'  // Install dependencies
             }
         }
+
         stage('List Files') {
-         steps {
-        bat 'dir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Arman Golkar\\src\\'
-    }
-}
+            steps {
+                // Listing the files in the root directory of the Jenkins workspace to verify the path
+                bat 'dir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Arman Golkar\\'
+                // Additionally, you can list the files in the src folder to ensure it exists
+                bat 'dir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Arman Golkar\\src\\'
+            }
+        }
 
         stage('Build') {
             steps {
+                // Run build command
                 bat 'npm run build'
             }
         }
+
         stage('Test') {
             steps {
-            
+                // Run tests by specifying the path to the test file directly
                 bat 'npm test -- --watchAll=false --verbose src/App.test.js'
-
             }
         }
+
         stage('Deploy') {
             steps {
+                // Deploy to Netlify
                 bat '''
                 npm install -g netlify-cli
                 netlify deploy --dir=build --prod --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID

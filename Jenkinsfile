@@ -8,18 +8,10 @@ pipeline {
     stages {
         stage('Install') {
             steps {
-                // Check if node_modules exists, and then delete it if it does
-                bat '''
-                IF EXIST node_modules rd /s /q node_modules
-                npm install
-                '''
+                bat 'npm install'
             }
         }
-        stage('List Files') {
-            steps {
-                bat 'dir %WORKSPACE%'
-            }
-        }
+
         stage('Build') {
             steps {
                 bat 'npm run build'

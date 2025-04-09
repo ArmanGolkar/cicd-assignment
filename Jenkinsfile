@@ -14,13 +14,13 @@ pipeline {
         }
 
         stage('List Files') {
-            steps {
-                // Listing the files in the root directory of the Jenkins workspace to verify the path
-                bat 'dir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Arman Golkar\\'
-                // Additionally, you can list the files in the src folder to ensure it exists
-                bat 'dir C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Arman Golkar\\src\\'
-            }
-        }
+    steps {
+        // List the root Jenkins workspace directory using the environment variable
+        bat 'dir %WORKSPACE%'
+        // Additionally, you can list the files in the src folder
+        bat 'dir %WORKSPACE%\\src'
+    }
+}
 
         stage('Build') {
             steps {
